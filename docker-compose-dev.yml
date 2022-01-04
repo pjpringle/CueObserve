@@ -23,6 +23,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./api:/code:rw
+      - djangoStaticFiles:/home/staticfiles:rw
     command:
       bash -c "chmod +x /code/start_server_new.sh && /code/start_server_new.sh"
     ports:
@@ -62,6 +63,8 @@ services:
     stdin_open: true
     volumes:
       - ./ui/src:/app/src:rw
+      - djangoStaticFiles:/home/staticfiles:ro      
+      
     # network_mode: "host"
 
   cueo-postgresql:
@@ -81,6 +84,7 @@ services:
 
 volumes:
   pgdata:
+  djangoStaticFiles:
 
 # networks:
 #   backend:
