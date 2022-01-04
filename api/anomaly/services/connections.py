@@ -1,7 +1,7 @@
 import logging
 from typing import List
 from utils.apiResponse import ApiResponse
-from dbConnections import BigQuery, Redshift, Snowflake, Druid, MySQL, Postgres, MSSQL, ClickHouse
+from dbConnections import BigQuery, Redshift, Snowflake, Druid, Pinot, MySQL, Postgres, MSSQL, ClickHouse
 from anomaly.models import (
     Connection,
     ConnectionParam,
@@ -62,25 +62,27 @@ class Connections:
         res = ApiResponse("Error in adding connection")
         connectionType = ConnectionType.objects.get(id=payload["connectionType_id"])
         connectionName = connectionType.name
+        connectionParams = payload["params"]
 
-        # Do this verification using Querys service
-
+        # Do this verification using Query service       
         if connectionName == "BigQuery":
-            connectionResponse = BigQuery.checkConnection(payload["params"])
+            connectionResponse = BigQuery.checkConnection(connectionParams)
         elif connectionName == "Redshift":
-            connectionResponse = Redshift.checkConnection(payload["params"])
+            connectionResponse = Redshift.checkConnection(connectionParams)
         elif connectionName == "Snowflake":
-            connectionResponse = Snowflake.checkConnection(payload["params"])
+            connectionResponse = Snowflake.checkConnection(connectionParams)
         elif connectionName == "Druid":
-            connectionResponse = Druid.checkConnection(payload["params"])
+            connectionResponse = Druid.checkConnection(connectionParams)
+        elif connectionName == "Pinot":
+            connectionResponse = Pinot.checkConnection(connectionParams)            
         elif connectionName == "MySQL":
-            connectionResponse = MySQL.checkConnection(payload["params"])
+            connectionResponse = MySQL.checkConnection(connectionParams)
         elif connectionName == "Postgres":
-            connectionResponse = Postgres.checkConnection(payload["params"])
+            connectionResponse = Postgres.checkConnection(connectionParams)
         elif connectionName == "MSSQL":
-            connectionResponse = MSSQL.checkConnection(payload["params"])
+            connectionResponse = MSSQL.checkConnection(connectionParams)
         elif connectionName == "ClickHouse":
-            connectionResponse = ClickHouse.checkConnection(payload["params"])
+            connectionResponse = ClickHouse.checkConnection(connectionParams)
         else:
             connectionResponse = True
 

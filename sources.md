@@ -95,6 +95,19 @@ GROUP BY 1, 2, 3
 ORDER BY 1
 ```
 
+## Pinot
+
+```sql
+SELECT
+DATETRUNC('day', updatedTsMs) as OrderDate, -- 'hour' or 'day' granularity
+City, State, -- dimensions
+SUM("count") as Orders, SUM(Order_Amount) as OrderAmount -- measures
+FROM ORDERS
+WHERE updatedTsMS >= now() - (13 * 2629746000) -- limit historical data to use for forecasting
+GROUP BY DATETRUNC('day', updatedTsMs), City, State
+ORDER BY DATETRUNC('day',updatedTsMs)
+```
+
 ## SQL Server
 
 #### Hourly granularity

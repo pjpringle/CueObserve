@@ -39,6 +39,28 @@ def testDbConnection(client, mocker ):
 	assert response.data["success"]
 	assert Connection.objects.all().count() == 1
 
+	# Test cases for Pinot connection 
+	connectionType = mixer.blend("anomaly.connectionType", name= "Pinot")
+	mixer.blend("anomaly.connectionParam", connectionType = connectionType, name ="host")
+	mixer.blend("anomaly.connectionParam", connectionType = connectionType, name ="port")
+	path = reverse("connections")
+
+	mockResponse = mocker.patch(
+		"dbConnections.druid.Druid.checkConnection",
+		new=mock.MagicMock(
+			autospec=True, return_value=True
+		),
+	)
+	mockResponse.start()
+	data = {'name': 'test druid', 'description': '', 'connectionType_id': connectionType.id, 'params': {'host': 'localhost', 'port': '8888'}}
+	response = client.post(path, data, content_type="application/json")
+	mockResponse.stop()
+	assert response.status_code == 200
+	assert response.data["success"]
+	assert Connection.objects.all().count() == 1
+
+
+
 	# Test cases for Postgres connection
 	postgresConnectionType = mixer.blend("anomaly.connectionType", name= "Postgres")
 	mixer.blend("anomaly.connectionParam", connectionType = postgresConnectionType, name ="host")

@@ -1,6 +1,7 @@
 from dbConnections import (
     BigQuery,
     Druid,
+    Pinot,
     Redshift,
     Snowflake,
     Druid,
@@ -11,35 +12,28 @@ from dbConnections import (
 )
 from anomaly.serializers import ConnectionDetailSerializer
 
-
 class Data:
     @staticmethod
     def runQueryOnConnection(connectionType, connectionParams, query, limit=True):
         dataframe = None
-        if connectionType == "BigQuery":
-            params = connectionParams
+        params = connectionParams
+        if connectionType == "BigQuery":            
             dataframe = BigQuery.fetchDataframe(params, query, limit=limit)
-        if connectionType == "Druid":
-            params = connectionParams
+        elif connectionType == "Druid":            
             dataframe = Druid.fetchDataframe(params, query, limit=limit)
-        if connectionType == "MySQL":
-            params = connectionParams
+        elif connectionType == "Pinot":
+            dataframe = Pinot.fetchDataframe(params, query, limit=limit)            
+        elif connectionType == "MySQL":
             dataframe = MySQL.fetchDataframe(params, query, limit=limit)
-        if connectionType == "Postgres":
-            params = connectionParams
+        elif connectionType == "Postgres":
             dataframe = Postgres.fetchDataframe(params, query, limit=limit)
-        if connectionType == "MSSQL":
-            params = connectionParams
+        elif connectionType == "MSSQL":
             dataframe = MSSQL.fetchDataframe(params, query, limit=limit)
-
-        if connectionType == "Redshift":
-            params = connectionParams
+        elif connectionType == "Redshift":
             dataframe = Redshift.fetchDataframe(params, query, limit=limit)
-        if connectionType == "Snowflake":
-            params = connectionParams
+        elif connectionType == "Snowflake":
             dataframe = Snowflake.fetchDataframe(params, query, limit=limit)
-        if connectionType == "ClickHouse":
-            params = connectionParams
+        elif connectionType == "ClickHouse":            
             dataframe = ClickHouse.fetchDataframe(params, query, limit=limit)
 
         return dataframe
