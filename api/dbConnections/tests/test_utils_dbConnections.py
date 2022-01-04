@@ -46,7 +46,7 @@ def testDbConnection(client, mocker ):
 	path = reverse("connections")
 
 	mockResponse = mocker.patch(
-		"dbConnections.druid.Druid.checkConnection",
+		"dbConnections.pinot.Pinot.checkConnection",
 		new=mock.MagicMock(
 			autospec=True, return_value=True
 		),

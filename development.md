@@ -11,7 +11,7 @@ description: >-
 
 CueObserve has multi-service architecture, with services as mentioned:
 
-1. `Frontend` single-page application written on [ReactJS](https://reactjs.org). It's code can be found in `ui` folder and runs on [http://localhost:3000/](https://reactjs.org).
+1. `Frontend` single-page application written on [ReactJS](https://reactjs.org). It's code can be found in `ui` folder and runs on [http://localhost:3000/]([http://localhost:3030).
 2. `API` is based on [Django](https://www.djangoproject.com) (python framework) & uses REST API. It is the main service, responsible for connections, authentication and anomaly.&#x20;
 3. `Alerts` micro-service, currently responsible for sending alerting/notifications only to slack. It's code is in `alerts-api` folder and runs on [localhost:8100](http://localhost:8100).
 4. [Celery](https://docs.celeryproject.org) to execute the tasks asynchronously. Tasks like anomaly detection are handled by Celery.
@@ -59,7 +59,7 @@ export `=False
 
 Change the values based on your running PostgreSQL instance. If you do not wish to use PostgreSQL as your database for development, comment lines 4-8 and CueObserve will create a SQLite database file at the location `api/db/db.sqlite3`.&#x20;
 
-The backend server can be accessed on [http://localhost:8000/](https://www.djangoproject.com).&#x20;
+The backend server can be accessed on [http://localhost:8000/](hhttp://localhost:8000).&#x20;
 
 #### Celery Development&#x20;
 

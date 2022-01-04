@@ -2,12 +2,14 @@ version: '3.3'
 services:
   cueo-nginx:
     container_name: "cueo-nginx"
-    image: nginx:1.17
+    image: nginx:latest
     volumes:
       - ./ui/nginx-dev.conf.template:/etc/nginx/conf.d/nginx-dev.conf.template
       - ./ui/nginx-entrypoint.sh:/etc/nginx/conf.d/nginx-entrypoint.sh
     command:
       bash -c "./etc/nginx/conf.d/nginx-entrypoint.sh && nginx -g 'daemon off;'"
+    ports:
+      - "3000:3000"      
     environment:
       ENVIRONMENT:
       NGINX_API_URL:
@@ -23,6 +25,8 @@ services:
       - ./api:/code:rw
     command:
       bash -c "chmod +x /code/start_server_new.sh && /code/start_server_new.sh"
+    ports:
+      - "8080:8080"         
     environment:
       ENVIRONMENT: ${ENVIRONMENT}
       API_URL: ${API_URL}
