@@ -45,6 +45,6 @@ RUN ln -sf /dev/stdout /var/log/nginx/access.log \
 RUN chmod +x /code/start_server.sh
 RUN chown -R www-data:www-data /code
 
-EXPOSE 3000 8080
+EXPOSE 3000 9080
 STOPSIGNAL SIGTERM
 CMD ["/code/start_server.sh"]

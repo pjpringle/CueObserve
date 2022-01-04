@@ -4,7 +4,7 @@ class ApiService {
   constructor(basePath){
     if(process.env.NODE_ENV === "development"){
           // Development Settings
-         this.host = "http://localhost:8080";
+         this.host = "http://localhost:9080";
          this.base_url = this.host + basePath + "/api/";
     }
     else{
