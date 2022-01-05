@@ -11,7 +11,7 @@ description: >-
 
 CueObserve has multi-service architecture, with services as mentioned:
 
-1. `Frontend` single-page application written on [ReactJS](https://reactjs.org). It's code can be found in `ui` folder and runs on [http://localhost:3000/]([http://localhost:3030).
+1. `Frontend` single-page application written on [ReactJS](https://reactjs.org). It's code can be found in `ui` folder and runs on [http://localhost:3000/]([http://localhost:3000).
 2. `API` is based on [Django](https://www.djangoproject.com) (python framework) & uses REST API. It is the main service, responsible for connections, authentication and anomaly.&#x20;
 3. `Alerts` micro-service, currently responsible for sending alerting/notifications only to slack. It's code is in `alerts-api` folder and runs on [localhost:8100](http://localhost:8100).
 4. [Celery](https://docs.celeryproject.org) to execute the tasks asynchronously. Tasks like anomaly detection are handled by Celery.
